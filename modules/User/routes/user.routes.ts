@@ -1,9 +1,22 @@
-import express, { NextFunction, Request, Response } from "express";
+import { Router } from 'express';
+import {
+  getUser,
+  editUser,
+  uploadProfilePicture,
+} from '../controllers/user.controller';
+import authenticateToken from '../../../middleware/auth.middleware';
+import { uploadMiddleware } from '../../../middleware/upload.middleware';
 
-const router = express.Router();
+const router = Router();
+const upload = uploadMiddleware('user');
 
-router.get("/test", (req: Request, res: Response) =>
-  console.log("Hello World")
+router.get('/profile', authenticateToken, getUser);
+router.put('/:id', authenticateToken, editUser);
+router.post(
+  '/upload',
+  authenticateToken,
+  upload.single('file'),
+  uploadProfilePicture
 );
 
 export default router;

@@ -4,6 +4,7 @@ import { host, port } from './config/config';
 import authRoutes from './modules/Auth/routes/auth.routes';
 import authenticateToken from './middleware/auth.middleware';
 import userRoutes from './modules/User/routes/user.routes';
+import path from 'path';
 
 const app = express();
 
@@ -31,6 +32,9 @@ app.use('/api/v1/auth', authRoutes);
 
 // Protected Routes
 app.use('/api/v1/user', authenticateToken, userRoutes);
+
+// static uploads for all modules
+app.use('/uploads', express.static(path.join(__dirname, 'modules')));
 
 modules(app);
 

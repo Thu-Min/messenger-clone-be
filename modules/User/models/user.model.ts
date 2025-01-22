@@ -1,7 +1,7 @@
-import { Model, DataTypes } from "sequelize";
-import sequelize from "../../../config/database";
-import Participant from "../../Participant/models/participant.model";
-import Message from "../../Messages/models/message.model";
+import { Model, DataTypes } from 'sequelize';
+import sequelize from '../../../config/database';
+import Participant from '../../Participant/models/participant.model';
+import Message from '../../Messages/models/message.model';
 
 export class User extends Model {
   public id!: string;
@@ -60,15 +60,15 @@ User.init(
   },
   {
     sequelize,
-    modelName: "User",
-    tableName: "users",
+    modelName: 'User',
+    tableName: 'users',
   }
 );
 
-User.hasMany(Participant, { foreignKey: "user_id" });
-Participant.belongsTo(User, { foreignKey: "user_id" });
+User.hasMany(Participant, { foreignKey: 'user_id' });
+Participant.belongsTo(User, { foreignKey: 'user_id' });
 
-User.hasMany(Message, { foreignKey: "sender_id" });
-Message.belongsTo(User, { foreignKey: "sender_id" });
+User.hasMany(Message, { foreignKey: 'sender_id' });
+Message.belongsTo(User, { foreignKey: 'sender_id' });
 
 export default User;
